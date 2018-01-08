@@ -1,0 +1,92 @@
+<table class="table table-striped">
+  <tr>
+    <th>Title</th>
+    <th>Applications_close_date</th>
+    <th>Earliest_start_date</th>
+    <th>Latest_end_date</th>
+    <th>Description</th>
+    <th>Backgrounds</th>
+    <th>Skills</th>
+    <th>Selection_process</th>
+    <th>Salary</th>
+    <th>Location</th>
+    <th>Cover Photo</th>
+  </tr>
+  <tr>
+    <td>{{allOpps.title}}</td>
+    <td>{{allOpps.applications_close_date}}</td>
+    <td>{{allOpps.earliest_start_date}}</td>
+    <td>{{allOpps.latest_end_date}}</td>
+    <td>{{allOpps.description}}</td>
+    <td >
+      <span *ngFor="let background of allOpps.backgrounds">{{background.name}}</span>
+    </td>
+    <td><span *ngFor="let skill of allOpps.skills">{{skill.name}}</span></td>
+    <td>{{allOpps.selection_process}}</td>
+    <td>{{allOpps.salary}}</td>
+    <td>{{allOpps.location}}</td>
+    <td>{{allOpps.cover_photo_urls}}</td>
+  </tr>
+</table> 
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+  Launch demo modal
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add Opportunity</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form novalidate [formGroup]="myModel" (ngSubmit)="onSubmit(myModel)">
+          Title:<input type="text" formControlName="title">
+          <div formArrayName="backgrounds"  *ngFor="let background of myModel.get('backgrounds').controls; let i = index;">
+              <div [formGroupName]="i" >
+                  <label>BackGround</label>
+                  <select formControlName="id" (change)="backgroundChange($event,i)">
+                      <option *ngFor="let b of backgroundsOption" [value]="b.id" >{{b.name}}</option>
+                    </select> 
+                    <input type="radio" formControlName="option" value="preffered">preffered
+                    <input type="radio" formControlName="option" value="required">required
+                  <input type="text" formControlName="name" hidden>
+                </div>  
+          </div>
+          <button (click)="onAddBackground()" type="button" *ngIf="limit">+</button>
+          <div formArrayName="skills"  *ngFor="let skill of myModel.get('skills').controls; let i = index;">
+              <div [formGroupName]="i" >
+                  <label>Skill</label>  
+                  <input type="text" formControlName="name" hidden>
+                   <select   (change)="skillChange($event,i)" formControlName="id">
+                      <option *ngFor="let s of skillsOptions" [value]="s.id">{{s.name}}</option>
+                    </select> 
+                    <input type="radio" formControlName="option" value="preffered">preffered
+                    <input type="radio" formControlName="option" value="required">required
+                </div>  
+          </div> 
+          <button (click)="onAddSkill()" type="button">+</button>
+          <div formGroupName="role_info">
+            city<input type="text" formControlName="city">  
+          </div>
+          Application Close Date:<input type="text" formControlName="applications_close_date">
+          Earliest Start date:<input type="text" formControlName="earliest_start_date">
+          Latest End Date:<input type="text" formControlName="latest_end_date">
+          Description:<input type="text" formControlName="description">
+          Selection Process:<input type="text" formControlName="selection_process">
+          Salary:<input type="text" formControlName="salary">
+          <button class="btn btn-default" name="Submit"> Submit</button>
+            </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+        <p>Form value: {{ myModel.value | json }}</p>
+      </div>
+    </div>
+  </div>
+</div>

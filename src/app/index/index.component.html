@@ -1,0 +1,19 @@
+<div class="row">
+    <div class="col col-md-3 col-lg-3 " *ngFor="let allOpp of allOpps; let i=index">
+      <div class="card-wrapper">
+      <div class="card">
+          <img class="card-img-top" src={{allOpp.cover_photo_urls}}  alt="Card image cap">
+        <div class="card-block">
+          <h5 class="card-title">{{allOpp.title}}</h5>
+          <p class="card-text">{{allOpp.description}}</p>          
+        </div>
+        <div class="card-footer">
+            <button type="button" class="btn btn-primary float-right" (click)=goToOpp(allOpp.id)>View</button> 
+        </div>
+      </div> 
+    </div> 
+    </div>
+  </div> 
+
+
+

@@ -1,1 +1,18 @@
 /* You can add global styles to this file, and also import other style files */
+.btn{
+    cursor: pointer;
+}
+.card-wrapper{
+    padding: 2px;
+    margin-bottom: 10px;
+}
+.card-img-top{
+    max-height: 150px;
+    /* max-width: 200px; */
+}
+.footer{
+
+}
+.card-block{
+    min-height: 100px;
+}
